@@ -1,19 +1,5 @@
 module Cosinux #:nodoc:
   module PageCacheTest #:nodoc:
-    
-    def self.configure #:nodoc:
-      ActionController::Base.perform_caching = true
-
-      # overwrite class caching methods
-      ActionController::Base.class_eval do
-        include ClassCachingMethods
-      end
-      
-      # include integration test methods
-      Test::Unit::TestCase.class_eval do
-        include IntegrationTestMethods
-      end
-    end
 
     module ClassCachingMethods #:nodoc:
       def self.included(base)
