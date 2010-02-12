@@ -49,15 +49,6 @@ module Cosinux
       end
     end
     
-    def self.configure #:nodoc:
-      ActionController::Base.perform_caching = true
-      ActionController::Base.cache_store = TestStore.new
-      
-      Test::Unit::TestCase.class_eval do
-        include Assertions
-      end
-    end
-    
     # This module define method to validate the fragment and action caching logic of
     # your application in both integration and functional tests.
     #
