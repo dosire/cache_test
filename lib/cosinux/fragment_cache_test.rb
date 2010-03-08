@@ -127,6 +127,25 @@ module Cosinux
           end
         end
       end
+      
+      # asserts that the list of given fragment name are being cached
+      def assert_not_cache_fragments(*names)
+        # in integration test, we need the know the controller
+        check_options_has_controller(names) if self.is_a?(ActionController::IntegrationTest)
+        
+        cache_store.reset
+        
+        yield *names
+        
+        # if there is no variable @controller, then we haven't done any request
+        raise NoRequestInBlockError.new("no request was send while executing block.") if @controller.nil?
+        
+        names.each do |name|
+          assert_block("#{name.inspect} is cached after executing block") do
+            !cache_store.written?(@controller.fragment_cache_key(name))
+          end
+        end
+      end
 
       # assert that the list of given fragment are being expired
       def assert_expire_fragments(*names)
