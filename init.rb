@@ -1,4 +1,4 @@
-if RAILS_ENV == "test"
+if RAILS_ENV.index("test")
 
 require 'active_support/test_case'
   
